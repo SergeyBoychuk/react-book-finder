@@ -1,9 +1,15 @@
 import React from 'react';
 import ButtonBootStrap from 'react-bootstrap/lib/Button';
+import Grid from 'react-bootstrap/lib/Grid'
 
 const Button = (props) => {
   return (
-    <ButtonBootStrap onClick={props.fetchBooks} bsStyle="success" bsSize="large">{props.text}</ButtonBootStrap>
+    <div>
+      <ButtonBootStrap onClick={props.fetchBooks} bsStyle="success" bsSize="large">{props.text}</ButtonBootStrap>
+      <Grid />
+    </div>
+
+
   )
 }
 
