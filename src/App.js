@@ -2,6 +2,15 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import Button from './Components/Button'
 import Input from './Components/Input'
+
+const Key = require('./API_KEYS/Key');
+
+
+const Amazon = require('amazon-book-search');
+const amazonClient = new Amazon((Key.keys[0].API_KEY, Key.keys[0].SECRET_KEY));
+
+
+
 require('./styles/css/App.css');
 
 
@@ -25,7 +34,7 @@ class App extends Component {
       console.log(data.items[0].volumeInfo.title);
       let books = data.items.map((book) => {
         return (
-          <div className="bookResults">
+          <div className="bookResults" key={data.items}>
             <img src={book.volumeInfo.imageLinks.thumbnail}/>
             <p>{book.volumeInfo.title}</p>
           </div>
@@ -79,7 +88,7 @@ class App extends Component {
           <Input changedText={this.handleInputISBN}/>
           <Button fetchBooks={() => {this.fetchBookByISBN(this.state.inputTextISBN)}} text="Find Your Book By ISBN"/>
         </div>
-        <div>
+        <div className="bookHolder">
           {this.state.books}
         </div>
       </div>
