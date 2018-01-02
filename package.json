@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "amazon-book-search": "0.0.10",
+    "amazon-product-api": "^0.4.4",
     "node-sass-chokidar": "0.0.3",
     "react": "^16.2.0",
     "react-bootstrap": "^0.31.5",
