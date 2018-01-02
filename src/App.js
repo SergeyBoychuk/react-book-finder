@@ -36,27 +36,6 @@ class App extends Component {
     }
   }
 
-  // fetchBookByISBN = (isbn) =>{
-  //   const filteredIsbn = isbn.replace(/[^\w\s]/gi, '')
-  //   fetch('https://www.googleapis.com/books/v1/volumes?q=isbn:' + filteredIsbn)
-  //   .then(results => {
-  //     return results.json();
-  //   }).then(data => {
-  //     console.log(data.items[0].volumeInfo.title);
-  //     let books = data.items.map((book) => {
-  //       return (
-  //         <div className="bookResults" key={data.items}>
-  //           <img src={book.volumeInfo.imageLinks.thumbnail}/>
-  //           <p>{book.volumeInfo.title}</p>
-  //         </div>
-  //       )
-  //     })
-  //     this.setState({books: books});
-  //     console.log("state", this.state.books)
-      
-  //   })
-  // }
-
   fetchBookByISBN = (isbn) =>{
     const filteredIsbn = isbn.replace(/[^\w\s]/gi, '')
     client.itemLookup({
@@ -67,42 +46,11 @@ class App extends Component {
       if (err) {
         console.log(err);
       } else {
-        let books = results[0].DetailPageURL.map((book) => {
-          console.log(book);
-        });
-        console.log(books);
-        
-
-        this.setState({booksISBN: books})
-        // let eachBook = books.map((key, value) => {
-        //   console.log(key, value)
-        // })
-        // let mappedBooks = Array.prototype.books.forEach((book) => {
-        //   return (
-        //     <div>
-        //       <h1>One book</h1>
-        //     </div>
-        //   )
-        // })
-        
-        
-        
-        
-        // return (
-        //   <div className="bookResults">
-        //     <p>Hello</p>
-        //   </div>
-            
-        // )
-  
-        // return (
-        //   <div className="bookResults">
-        //     <p>{books[0].ItemAttributes[0].Title}</p>
-        //   </div>
-        // )
-        // console.log(books[0].ItemAttributes[0].Title)
+        let books = results;   
+        this.setState({booksISBN: books});
+        console.log(this.state.booksISBN);
       }
-      console.log(this.state.booksISBN)
+      
     });
   }
 
@@ -139,6 +87,7 @@ class App extends Component {
 
   render() {
     return (
+      
       <div className="App">
         <div className="searchContainer">
           <Input changedText={this.handleInputBookName}/>
@@ -149,7 +98,14 @@ class App extends Component {
           <Button fetchBooks={() => {this.fetchBookByISBN(this.state.inputTextISBN)}} text="Find Your Book By ISBN"/>
         </div>
         <div className="bookHolder">
-          {this.state.books}
+          
+          {this.state.booksISBN.map((book) =>  (
+            <div className="bookResults">
+              <p>{book.ItemAttributes[0].Title}</p>
+              <img src={book.LargeImage[0].URL}/>
+            </div>
+          ))}
+          
         </div>
       </div>
     );
@@ -157,3 +113,10 @@ class App extends Component {
 }
 
 export default App;
+
+/*
+Note for self ------
+
+Finished searching for books by isbn , need to implement search by name synergistically with search by isbn
+
+*/
